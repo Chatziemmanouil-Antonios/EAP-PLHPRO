@@ -1,9 +1,6 @@
 
 import numpy as np
 import pandas as pd
-#from scipy.interpolate import interp1d,pchip
-#from scipy.integrate import odeint, solve_ivp, solve_bvp
-#from scipy.optimize import differential_evolution, minimize
 from scipy import signal
 
 df=pd.read_csv("https://raw.githubusercontent.com/Sandbird/covid19-Greece/master/cases.csv",parse_dates=["date"])
@@ -37,9 +34,9 @@ from plotly.subplots import make_subplots
 
 st.set_page_config(layout="wide")
 st.title('Greece covid analytics Dashboard')
-#TODO: add subtitle Daily report
 
-#r1, r_cases, r_deaths, r_hostpital, r_Rt, r2 = st.columns((1,1,1,1,1,1))
+
+
 
 # Index(['new_cases', 'confirmed', 'new_deaths', 'total_deaths', 'new_tests',
 #        'positive_tests', 'new_selftest', 'total_selftest', 'new_ag_tests',
@@ -68,7 +65,7 @@ for Row in Rows: #Row is every key in dictionary Rows
     with cols[0]:
         st.markdown(Row)
         
-    #what zip does? for example 
+    #zip
     #for i,j,k in zip(['a','b','c'],[1,2,3],[7,8,9]):
     #i='a',j=1,k=7
     #'b',2,8
@@ -82,7 +79,7 @@ for Row in Rows: #Row is every key in dictionary Rows
                 val=df.iloc[-1][info]
                 dif=df.iloc[-1][info]-df.iloc[-2][info]
             else: 
-                #TODO: check this! 
+                
                 #it is only about Hospitalizations, which is around one day before
                 notna=df[~pd.isna(df[info])] #temporary dataframe (with random name notna), without nan values
                 #pd.isna(df[info]) is True where the dataframe is NaN
@@ -101,7 +98,6 @@ for Row in Rows: #Row is every key in dictionary Rows
                 ci.metric(label=label,value= round(val,2), delta = str(round(dif,2)), delta_color = 'inverse')
 
 
-#TODO: Add subtitle Timeseries
 row_spacer_start, row1, row2, row_spacer_end  = st.columns((0.1, 1.0, 6.4, 0.1))
 
 with row1:
@@ -109,7 +105,7 @@ with row1:
     plot_value = st.selectbox ("Variable", list(value_labels.keys()), key = 'value_key') #take all the keys from value_labels dictionary
     plot_value2 = st.selectbox ("Second Variable", [None]+list(value_labels.keys()), key = 'value_key')
     smooth = st.checkbox("Add smooth curve")
-    #TODO: Decide if we want log, doesn't work now
+   
     log = st.checkbox("Use log scale")
     
 with row2:    
@@ -126,7 +122,7 @@ with row2:
     
     fig.add_traces(fig1.data) #add to the fig (what is going to be show to the user) the fig1
     
-    #TODO: check why title is not plotted
+    
     fig.layout.yaxis.title=plot_value #add label
     
     if smooth:
