@@ -98,14 +98,26 @@ for Row in Rows: #Row is every key in dictionary Rows
                 ci.metric(label=label,value= round(val,2), delta = str(round(dif,2)), delta_color = 'inverse')
 
                 
-row_spacer_start, R0_, MR_, CFR_, row_spacer_end  = st.columns((0.5, 1.0, 1.0, 1.0))  
+row_spacer_start, R0_, MR_, CFR_  = st.columns((0.5, 1.0, 1.0, 1.0,1.0))  
 CFR=np.nansum(df["new_deaths"]/np.nansum(df["new_cases"])
 with row_spacer_start:
     st.markdown("Epidemiological Indicators")
 
 MR_.metric(label="Mortality (Greece)",value=3)
 R0_.metric(label=R0,value=R0)
-CFR_.metric(label="CRF",value=round(CRF,3))          
+CFR_.metric(label="CRF",value=round(CRF,3))  
+              
+#st.set_page_config(layout="wide")
+#m1, m2, m3, m4, m5 = st.columns((1,1,1,1,1))
+#m1.write('')
+#info='new_cases'
+#m2.metric(label ='New Cases',value = df.iloc[-1][info], delta = str(int(df.iloc[-1][info]-df.iloc[-2][info]))+' Compared to yesterday', delta_color = 'inverse')
+#info='new_deaths'
+#m3.metric(label ='New Deaths',value = df.iloc[-1][info], delta = str(int(df.iloc[-1][info]-df.iloc[-2][info]))+' Compared to yesterday', delta_color = 'inverse')
+#info='Rt'
+#m4.metric(label ='Rt',value = df.iloc[-1][info], delta = str(int(df.iloc[-1][info]-df.iloc[-2][info]))+' Compared to yesterday', delta_color = 'inverse')
+#m1.write('')             
+              
            
 
 with row1:
