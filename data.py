@@ -98,14 +98,14 @@ for Row in Rows: #Row is every key in dictionary Rows
                 ci.metric(label=label,value= round(val,2), delta = str(round(dif,2)), delta_color = 'inverse')
 
                 
-row_spacer_start, R0_, MR_, CFR_  = st.columns((0.5, 1.0, 1.0, 1.0,1.0))  
-CFR=np.nansum(df["new_deaths"]/np.nansum(df["new_cases"])
-with row_spacer_start:
-    st.markdown("Epidemiological Indicators")
+#row_spacer_start, R0_, MR_, CFR_  = st.columns((0.5, 1.0, 1.0, 1.0,1.0))  
+#CFR=np.nansum(df["new_deaths"]/np.nansum(df["new_cases"])
+#with row_spacer_start:
+    #st.markdown("Epidemiological Indicators")
 
-MR_.metric(label="Mortality (Greece)",value=3)
-R0_.metric(label=R0,value=R0)
-CFR_.metric(label="CRF",value=round(CRF,3))  
+#MR_.metric(label="Mortality (Greece)",value=3)
+#R0_.metric(label=R0,value=R0)
+#CFR_.metric(label="CRF",value=round(CRF,3))  
               
 #st.set_page_config(layout="wide")
 #m1, m2, m3, m4, m5 = st.columns((1,1,1,1,1))
