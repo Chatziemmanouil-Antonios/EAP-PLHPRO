@@ -105,7 +105,7 @@ with row_spacer_start:
 
 MR_.metric(label="Mortality (Greece)",value=3)
 R0_.metric(label=R0,value=R0)
-CRF_.metric(label="CRF",value=round(CRF,3))          
+CFR_.metric(label="CRF",value=round(CRF,3))          
            
 
 with row1:
