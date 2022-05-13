@@ -8,6 +8,12 @@ df=df.set_index("date")
 df=df.drop(["id"],axis=1)
 df["new_positive_tests"]=df.positive_tests.diff()
 df["new_vaccinations"]=df['total_vaccinations'].diff()
+
+CFR=np.nansum(df["new_deaths"])/np.nansum(df["new_cases"])
+R0=2.79
+mu=0.0013
+mu_global=0.0012
+
 from scipy.stats import gamma
 k=2209/290
 t=(29/47)
@@ -97,28 +103,15 @@ for Row in Rows: #Row is every key in dictionary Rows
             else:
                 ci.metric(label=label,value= round(val,2), delta = str(round(dif,2)), delta_color = 'inverse')
 
+row_spacer_start, R0_, mu_,mu_global_, CFR_  = st.columns((0.5,1.0,1.0,1.0,1.0)) 
+with row_spacer_start:
+    st.markdown("Epidemic Metrics")
+R0_.metric(label="R0",value= R0)
+mu_.metric(label="Mortality (Greece)",value= mu)
+mu_global_.metric(label="Mortality (Global)",value= mu_global)
+CFR_.metric(label="CFR",value= round(CFR,3))
                 
-#row_spacer_start, R0_, MR_, CFR_  = st.columns((0.5, 1.0, 1.0, 1.0,1.0))  
-#CFR=np.nansum(df["new_deaths"]/np.nansum(df["new_cases"])
-#with row_spacer_start:
-    #st.markdown("Epidemiological Indicators")
-
-#MR_.metric(label="Mortality (Greece)",value=3)
-#R0_.metric(label=R0,value=R0)
-#CFR_.metric(label="CRF",value=round(CRF,3))  
-              
-#st.set_page_config(layout="wide")
-#m1, m2, m3, m4, m5 = st.columns((1,1,1,1,1))
-#m1.write('')
-#info='new_cases'
-#m2.metric(label ='New Cases',value = df.iloc[-1][info], delta = str(int(df.iloc[-1][info]-df.iloc[-2][info]))+' Compared to yesterday', delta_color = 'inverse')
-#info='new_deaths'
-#m3.metric(label ='New Deaths',value = df.iloc[-1][info], delta = str(int(df.iloc[-1][info]-df.iloc[-2][info]))+' Compared to yesterday', delta_color = 'inverse')
-#info='Rt'
-#m4.metric(label ='Rt',value = df.iloc[-1][info], delta = str(int(df.iloc[-1][info]-df.iloc[-2][info]))+' Compared to yesterday', delta_color = 'inverse')
-#m1.write('')             
-              
-           
+row_spacer_start, row1, row2, row_spacer_end  = st.columns((0.1, 1.0, 6.4, 0.1))
 
 with row1:
     #add here everything you want in first column
@@ -126,7 +119,7 @@ with row1:
     plot_value2 = st.selectbox ("Second Variable", [None]+list(value_labels.keys()), key = 'value_key')
     smooth = st.checkbox("Add smooth curve")
    
-    #log = st.checkbox("Use log scale")
+    log = st.checkbox("Use log scale")
     
 with row2:    
     sec= not (plot_value2 is None) #True or False if there is a second plot
