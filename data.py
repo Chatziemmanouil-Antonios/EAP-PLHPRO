@@ -97,8 +97,16 @@ for Row in Rows: #Row is every key in dictionary Rows
             else:
                 ci.metric(label=label,value= round(val,2), delta = str(round(dif,2)), delta_color = 'inverse')
 
+                
+row_spacer_start, R0_, MR_, CFR_, row_spacer_end  = st.columns((0.5, 1.0, 1.0, 1.0))  
+CFR=np.nansum(df["new_deaths"]/np.nansum(df["new_cases"])
+with row_spacer_start:
+    st.markdown("Epidemiological Indicators")
 
-row_spacer_start, row1, row2, row_spacer_end  = st.columns((0.1, 1.0, 6.4, 0.1))
+MR_.metric(label="Mortality (Greece)",value=3)
+R0_.metric(label=R0,value=R0)
+CRF_.metric(label="CRF",value=round(CRF,3))          
+           
 
 with row1:
     #add here everything you want in first column
