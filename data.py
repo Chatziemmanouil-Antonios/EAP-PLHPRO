@@ -106,7 +106,7 @@ with row1:
     plot_value2 = st.selectbox ("Second Variable", [None]+list(value_labels.keys()), key = 'value_key')
     smooth = st.checkbox("Add smooth curve")
    
-    log = st.checkbox("Use log scale")
+    #log = st.checkbox("Use log scale")
     
 with row2:    
     sec= not (plot_value2 is None) #True or False if there is a second plot
