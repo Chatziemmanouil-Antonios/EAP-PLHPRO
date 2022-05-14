@@ -105,7 +105,7 @@ for Row in Rows: #Row is every key in dictionary Rows
 
 row_spacer_start, R0_, mu_,mu_global_, CFR_  = st.columns((0.5,1.0,1.0,1.0,1.0)) 
 with row_spacer_start:
-    st.markdown("Epidemic Metrics")
+    st.markdown("Epidemiological Indicators")
 R0_.metric(label="R0",value= R0)
 mu_.metric(label="Mortality (Greece)",value= mu)
 mu_global_.metric(label="Mortality (Global)",value= mu_global)
