@@ -103,7 +103,7 @@ for Row in Rows: #Row is every key in dictionary Rows
             else:
                 ci.metric(label=label,value= round(val,2), delta = str(round(dif,2)), delta_color = 'inverse')
 
-row_spacer_start, R0_, mu_,mu_global_, CFR_  = st.columns((0.5,1.0,1.0,1.0,1.0)) 
+row_spacer_start, R0_, m_,m_global_, CFR_  = st.columns((0.5,1.0,1.0,1.0,1.0)) 
 with row_spacer_start:
     st.markdown("Epidemiological Indicators")
 R0_.metric(label="Basic Reproduction Number - Ro",value= R0)
