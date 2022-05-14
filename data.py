@@ -11,8 +11,8 @@ df["new_vaccinations"]=df['total_vaccinations'].diff()
 
 CFR=np.nansum(df["new_deaths"])/np.nansum(df["new_cases"])
 R0=2.79
-mu=0.0013
-mu_global=0.0012
+m=0.0013
+m_global=0.0012
 
 from scipy.stats import gamma
 k=2209/290
@@ -107,8 +107,8 @@ row_spacer_start, R0_, mu_,mu_global_, CFR_  = st.columns((0.5,1.0,1.0,1.0,1.0))
 with row_spacer_start:
     st.markdown("Epidemiological Indicators")
 R0_.metric(label="Basic Reproduction Number - Ro",value= R0)
-mu_.metric(label="Mortality (Greece)",value= mu)
-mu_global_.metric(label="Mortality (Global)",value= mu_global)
+m_.metric(label="Mortality (Greece)",value= m)
+m_global_.metric(label="Mortality (Global)",value= m_global)
 CFR_.metric(label="Case Fatality Rate",value= round(CFR,3))
                 
 row_spacer_start, row1, row2, row_spacer_end  = st.columns((0.1, 1.0, 6.4, 0.1))
