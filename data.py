@@ -123,7 +123,7 @@ with row1:
 with row2:    
     sec= not (plot_value2 is None) #True or False if there is a second plot
     
-    fig = make_subplots(specs=[[{"secondary_y": sec}]]) #plotly function, define fig which will be show at iser
+    fig = make_subplots(specs=[[{"secondary_y": sec}]]) #plotly function, define fig which will be show at user
     
     x1=df.index #abbreviation for dates
     y1=df[value_labels[plot_value]] #abbreviation for ploting values, translate from shown names to column names (from value_labels dictionary)
@@ -140,7 +140,7 @@ with row2:
     if smooth:
         # Create temprary rolling average dataframe
         ys1= df.rolling("7D").mean()[value_labels[plot_value]]
-        figs=px.line(x = x1, y=ys1)#,log_y=log)
+        figs=px.line(x = x1, y=ys1)
         fig.add_traces(figs.data)   #add figs to the fig (what we will show at the end)     
         
     if sec:
