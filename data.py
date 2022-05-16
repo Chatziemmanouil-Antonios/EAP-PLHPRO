@@ -135,7 +135,7 @@ with row2:
     fig.add_traces(fig1.data) #add to the fig (what is going to be show to the user) the fig1
     
     
-    fig.layout.yaxis.title=plot_value #add label
+    #fig.layout.yaxis.title=plot_value #add label
     
     if smooth:
         # Create temprary rolling average dataframe
@@ -152,5 +152,5 @@ with row2:
         fig.add_traces(figsec.data) #add figsec to the fig (what we will show at the end) 
         fig.layout.yaxis2.title=plot_value2
 
-    fig.update_layout(title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title=None, xaxis_title=None)
+    fig.update_layout(title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title=plot_value, xaxis_title=None)
     st.plotly_chart(fig, use_container_width=True) 
