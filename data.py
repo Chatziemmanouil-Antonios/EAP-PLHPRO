@@ -1,14 +1,35 @@
 
+# ------------------------------------------------------ import libraries -------------------------------------------------
 import numpy as np
 import pandas as pd
 from scipy import signal
 
+#from datetime import time
+#from datetime import date
+import matplotlib.pyplot as plt
+import seaborn as sns
+#import plotly.figure_factory as ff
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+#from math import sqrt
+#from sklearn import preprocessing
+
+import streamlit as st
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+
+# create the dataframe
 df=pd.read_csv("https://raw.githubusercontent.com/Sandbird/covid19-Greece/master/cases.csv",parse_dates=["date"])
 df=df.set_index("date")
 df=df.drop(["id"],axis=1)
 df["new_positive_tests"]=df.positive_tests.diff()
 df["new_vaccinations"]=df['total_vaccinations'].diff()
 
+
+# calculate the epidemiologic factors
 CFR=np.nansum(df["new_deaths"])/np.nansum(df["new_cases"])
 R0=2.79
 m=0.0013
@@ -32,15 +53,13 @@ df["Rt"]=np.nan
 for i in range(len(df)):
     df["Rt"].iloc[i]=Rt(df,i)
     
-import streamlit as st
-import plotly.express as px
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 
-
+# ------------------------------------------------------ streamlit page layout -------------------------------------------------
+# Use the full page instead of a narrow central column
 st.set_page_config(layout="wide")
-st.title('Greece covid analytics Dashboard')
 
+# display title
+st.title('Greece covid analytics Dashboard')
 
 
 
@@ -103,6 +122,10 @@ for Row in Rows: #Row is every key in dictionary Rows
             else:
                 ci.metric(label=label,value= round(val,2), delta = str(round(dif,2)), delta_color = 'inverse')
 
+                
+# ----------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------- page row 1 ---------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------------------------
 row_spacer_start, R0_, m_,m_global_, CFR_  = st.columns((0.5,1.0,1.0,1.0,1.0)) 
 with row_spacer_start:
     st.markdown("Epidemiological Indicators")
@@ -152,5 +175,71 @@ with row2:
         fig.add_traces(figsec.data) #add figsec to the fig (what we will show at the end) 
         fig.layout.yaxis2.title=plot_value2
 
+    fig.update_layout(title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title=plot_value, xaxis_title=None)
+    st.plotly_chart(fig, use_container_width=True) 
+
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------- page row 2 ---------------------------------------------------------------------  
+# ----------------------------------------------------------------------------------------------------------------------------------------
+row_spacer_start_row2, dependent_variable  = st.columns((0.1,4.0)) 
+                
+row_spacer_start, row1, row2, row_spacer_end  = st.columns((0.1, 1.0, 6.4, 0.1))
+
+with row1:
+    #add here everything you want in first column
+    #plot_value = st.selectbox ("Linear regression", list(value_labels.keys()), key = 'value_key') #take all the keys from value_labels dictionary
+    st.subheader("Linear Regression")
+
+if st.checkbox("Display dataset", False):
+    st.subheader("COVID Greece dataset")
+    st.write(df) 
+    
+# ----------------------------------------- linear regression -----------------------------------------#
+# input arrays
+#x = np.array(df[['id']])
+#y = np.array(df['new_cases'])
+
+# Create an instance of liner regression
+#lm = LinearRegression()
+#model = lm.fit(x, y)
+
+#y_pred = lm.predict(x)
+#r_squared = lm.r2_score(x, y)
+
+#figline = sns.regplot(x='dates', y='new_cases', data=df)
+#st.pyplot(figline)
+
+### Accuracy of the model
+#"""
+#R2 = r2_score(Y_val, Y_pred_val)
+#st.write(f'R2 value: {R2:.2f}')
+
+# Plot
+#with row2: 
+#fig, ax = plt.subplots(figsize=(5, 3))
+#ax.scatter(x=df['id'], y=df['new_cases'])
+#sns.regplot(x='date', y='new_cases', data=df)
+#plt.xlabel('date')
+#plt.ylabel('new_cases')
+#st.pyplot(fig)
+
+#fig_LR = px.scatter(df, x=df["date"], y=df["new_cases"], trendline='ols', title='Ordinary Least Squares Regression') 
+
+
+# -----------------------------------------------------------------------------------------------------#
+
+with row2:      
+    #sec= not (plot_value2 is None) #True or False if there is a second plot
+        
+    x_LR = df.index #abbreviation for dates
+    y_LR = df["new_cases"] #abbreviation for ploting values, translate from shown names to column names (from value_labels dictionary)
+    
+    fig = px.scatter(df, x=x_LR, y=y_LR, trendline="ols")
+    fig.show()
+    
+    #fig1= px.bar(df,x = x1, y=value_labels[plot_value])#,log_y=log)
+    #fig_LR= px.bar(df,x = x_LR, y=y_LR) #bar plot named as fig1
+    
     fig.update_layout(title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title=plot_value, xaxis_title=None)
     st.plotly_chart(fig, use_container_width=True) 
