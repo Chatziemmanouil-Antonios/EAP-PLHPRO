@@ -60,6 +60,7 @@ st.set_page_config(layout="wide")
 
 # display title
 st.title('Greece covid analytics Dashboard')
+st.subheader('Daily Report')
 
 
 
