@@ -137,14 +137,14 @@ CFR_.metric(label="Case Fatality Rate",value= round(CFR,3))
                 
 row_spacer_start, row1, row2, row_spacer_end  = st.columns((0.1, 1.0, 6.4, 0.1))
 
-with col1:
+with row1:
     #add here everything you want in first column
     plot_value = st.selectbox ("Variable", list(value_labels.keys()), key = 'value_key') #take all the keys from value_labels dictionary
     plot_value2 = st.selectbox ("Second Variable", [None]+list(value_labels.keys()), key = 'value_key')
     smooth = st.checkbox("Add smooth curve")
    
     
-with col2:    
+with row2:    
     sec= not (plot_value2 is None) #True or False if there is a second plot
     
     fig = make_subplots(specs=[[{"secondary_y": sec}]]) #plotly function, define fig which will be show at user
