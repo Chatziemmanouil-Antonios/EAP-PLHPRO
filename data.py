@@ -44,7 +44,7 @@ def Rt(df,ix0=-1,smooth="10D",k=2209/841,t=841/470):
     Irm=df.rolling(smooth).mean().new_cases
     s=0
     dist=gamma(k,scale=t)
-    for ix in range(0,15):    
+    for ix in range(0,20):    
         s+=dist.pdf(ix)*Irm[ix0-ix]
         #print(ix,ix0-ix,Irm[ix0-ix],Irm[ix0]/s) 
     return Irm[ix0]/s
