@@ -40,7 +40,7 @@ k=2209/290
 t=(29/47)
 dist=gamma(k,scale=t)
 
-def Rt(df,ix0=-1,smooth="10D",k=2209/290,t=29/47):
+def Rt(df,ix0=-1,smooth="10D",k=2209/841,t=841/470):
     Irm=df.rolling(smooth).mean().new_cases
     s=0
     dist=gamma(k,scale=t)
