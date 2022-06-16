@@ -137,14 +137,14 @@ CFR_.metric(label="Case Fatality Rate",value= round(CFR,3))
                 
 row_spacer_start, row1, row2, row_spacer_end  = st.columns((0.1, 1.0, 6.4, 0.1))
 
-with row1:
+with col1:
     #add here everything you want in first column
     plot_value = st.selectbox ("Variable", list(value_labels.keys()), key = 'value_key') #take all the keys from value_labels dictionary
     plot_value2 = st.selectbox ("Second Variable", [None]+list(value_labels.keys()), key = 'value_key')
     smooth = st.checkbox("Add smooth curve")
    
     
-with row2:    
+with col2:    
     sec= not (plot_value2 is None) #True or False if there is a second plot
     
     fig = make_subplots(specs=[[{"secondary_y": sec}]]) #plotly function, define fig which will be show at user
@@ -152,7 +152,7 @@ with row2:
     x1=df.index #abbreviation for dates
     y1=df[value_labels[plot_value]] #abbreviation for ploting values, translate from shown names to column names (from value_labels dictionary)
     
-    #fig1= px.bar(df,x = x1, y=value_labels[plot_value])#,log_y=log)
+    #fig1= px.bar(df,x = x1, y=value_labels[plot_value])
     
     fig1= px.bar(df,x = x1, y=y1) #bar plot named as fig1
     
@@ -170,7 +170,7 @@ with row2:
     if sec:
         x2=df.index
         y2=df[value_labels[plot_value2]]
-        figsec=px.line(x = x2, y=y2)#,log_y=log)
+        figsec=px.line(x = x2, y=y2)
         figsec.update_traces(yaxis="y2")
         
         fig.add_traces(figsec.data) #add figsec to the fig (what we will show at the end) 
