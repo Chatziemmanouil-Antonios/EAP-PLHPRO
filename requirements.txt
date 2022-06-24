@@ -4,7 +4,6 @@ plotly==5.7.0
 scipy==1.7.3
 streamlit==1.8.1
 protobuf~=3.19.0
-matplotlib==3.4.2
-scikit-learn==0.24.2
+
 
 
