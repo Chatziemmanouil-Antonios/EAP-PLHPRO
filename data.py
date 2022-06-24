@@ -96,12 +96,12 @@ for Row in Rows: #Row is every key in dictionary Rows
             else: 
                 
                 #it is only about Hospitalizations, which is around one day before
-                notna=df[~pd.isna(df[info])] #temporary dataframe (with random name notna), without nan values
+                notnu=df[~pd.isna(df[info])] #temporary dataframe (with random name notnu), without nan values
                 #pd.isna(df[info]) is True where the dataframe is NaN
                 #~pd.isna(df[info]) is True where the dataframe is NOT NaN
 
-                val=notna.iloc[-1][info] #last not NaN value (not latest day!)
-                dif=notna.iloc[-1][info]-notna.iloc[-2][info] # last not NaN value - second last not NaN value
+                val=notnu.iloc[-1][info] #last not NaN value (not latest day!)
+                dif=notnu.iloc[-1][info]-notnu.iloc[-2][info] # last not NaN value - second last not NaN value
 
             if label != "Rt":
                 # Show the values as integers
