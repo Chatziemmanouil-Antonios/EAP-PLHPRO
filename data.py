@@ -15,7 +15,6 @@ df=pd.read_csv("https://raw.githubusercontent.com/Sandbird/covid19-Greece/master
 df=df.set_index("date")
 df=df.drop(["id"],axis=1)
 df["new_positive_tests"]=df.positive_tests.diff()
-df["new_vaccinations"]=df.total_vaccinations.diff()
 
 
 # calculate the epidemiologic factors
